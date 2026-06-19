@@ -1,0 +1,20 @@
+{
+  "name": "auto-moderator-bot",
+  "version": "1.0.0",
+  "description": "Discord Auto Moderator Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "discord",
+    "moderation",
+    "bot"
+  ],
+  "author": "Delon",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1"
+  }
+}
