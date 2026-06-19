@@ -3,6 +3,7 @@ name = "tenuh-dev/galaxi-moderator"
 version = "1.0.0"
 description = "Galaxi Auto Moderator Bot for Discord"
 license = "MIT"
+readme = "README.md"
 
 [[command]]
 name = "start"
@@ -11,7 +12,19 @@ runner = "https://webc.org/runner/wasi"
 
 [command.annotations.wasi]
 main-args = ["/app/dist/index.js"]
-env = ["DISCORD_BOT_TOKEN", "LOG_CHANNEL_ID", "MAX_WARNS_BEFORE_KICK", "MAX_WARNS_BEFORE_BAN", "SPAM_THRESHOLD", "SPAM_INTERVAL_MS", "MAX_MENTIONS"]
+env = [
+  "DISCORD_BOT_TOKEN",
+  "LOG_CHANNEL_ID",
+  "MAX_WARNS_BEFORE_KICK",
+  "MAX_WARNS_BEFORE_BAN",
+  "SPAM_THRESHOLD",
+  "SPAM_INTERVAL_MS",
+  "MAX_MENTIONS"
+]
 
 [fs]
 "/app" = "."
+"/app/data" = { volume = "galaxi-data" }
+
+[[volume]]
+name = "galaxi-data"
