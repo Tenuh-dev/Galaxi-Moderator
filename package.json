@@ -1,20 +1,24 @@
 {
-  "name": "auto-moderator-bot",
+  "name": "galaxi-moderator",
   "version": "1.0.0",
-  "description": "Discord Auto Moderator Bot",
-  "main": "index.js",
+  "description": "Galaxi Auto Moderator Bot for Discord",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node index.js"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
   },
-  "keywords": [
-    "discord",
-    "moderation",
-    "bot"
-  ],
-  "author": "Delon",
-  "license": "MIT",
   "dependencies": {
-    "discord.js": "^14.21.0",
-    "dotenv": "^17.2.1"
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "lowdb": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5",
+    "ts-node": "^10.9.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
