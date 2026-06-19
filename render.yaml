@@ -1,0 +1,27 @@
+services:
+  - type: worker
+    name: galaxi-moderator
+    runtime: node
+    repo: https://github.com/Tenuh-dev/Galaxi-Moderator
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: LOG_CHANNEL_ID
+        sync: false
+      - key: MAX_WARNS_BEFORE_KICK
+        value: "3"
+      - key: MAX_WARNS_BEFORE_BAN
+        value: "5"
+      - key: SPAM_THRESHOLD
+        value: "5"
+      - key: SPAM_INTERVAL_MS
+        value: "5000"
+      - key: MAX_MENTIONS
+        value: "5"
+    disk:
+      name: galaxi-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
