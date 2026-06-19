@@ -38,4 +38,7 @@ client.once("ready", async () => {
 
 require("./events/messageCreate")(client);
 
+console.log("TOKEN ADA:", !!config.token);
+console.log("BOT NAME:", config.botName);
+
 client.login(config.token);
