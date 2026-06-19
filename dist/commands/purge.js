@@ -1,0 +1,36 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.data = void 0;
+exports.execute = execute;
+const discord_js_1 = require("discord.js");
+const index_js_1 = require("../config/index.js");
+exports.data = new discord_js_1.SlashCommandBuilder()
+    .setName('purge')
+    .setDescription('Hapus beberapa pesan sekaligus')
+    .setDefaultMemberPermissions(discord_js_1.PermissionFlagsBits.ManageMessages)
+    .addIntegerOption(opt => opt.setName('amount').setDescription('Jumlah pesan yang akan dihapus (1-100)').setRequired(true).setMinValue(1).setMaxValue(100))
+    .addUserOption(opt => opt.setName('user').setDescription('Hapus pesan dari user tertentu saja').setRequired(false));
+async function execute(interaction) {
+    const amount = interaction.options.getInteger('amount', true);
+    const targetUser = interaction.options.getUser('user');
+    const channel = interaction.channel;
+    await interaction.deferReply({ ephemeral: true });
+    try {
+        let messages = await channel.messages.fetch({ limit: 100 });
+        if (targetUser) {
+            messages = messages.filter(m => m.author.id === targetUser.id);
+        }
+        // Hanya bisa hapus pesan < 14 hari
+        const twoWeeksAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
+        messages = messages.filter(m => m.createdTimestamp > twoWeeksAgo);
+        const toDelete = messages.first(amount);
+        const deleted = await channel.bulkDelete(toDelete, true);
+        await interaction.editReply({
+            content: `${index_js_1.config.emojis.check} Berhasil menghapus **${deleted.size}** pesan${targetUser ? ` dari ${targetUser.tag}` : ''}.`,
+        });
+    }
+    catch (error) {
+        await interaction.editReply({ content: '❌ Gagal menghapus pesan. Pastikan pesan tidak lebih dari 14 hari.' });
+    }
+}
+//# sourceMappingURL=purge.js.map
